@@ -1,7 +1,5 @@
 const DEV_JWT_KEY = 'some-dev-key';
 
-const URL_REGEXP = /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
-
 const VALIDATION_ERROR_NAME = 'ValidationError';
 const BAD_REQUEST = 'Неверно переданы данные';
 const BAD_URL = 'Не является URL адресом';
@@ -54,7 +52,6 @@ const USER_SCHEMA_VALIDATE_MESSAGES = {
 
 module.exports = {
   DEV_JWT_KEY,
-  URL_REGEXP,
   VALIDATION_ERROR_NAME,
   NOT_AUTH_ERROR,
   NOT_FOUND_ERROR,

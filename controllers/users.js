@@ -108,7 +108,7 @@ const createUser = (req, res, next) => {
         throw new BadRequestError(BAD_REQUEST);
       }
       if (err.code === 11000) {
-        throw new ConflictError(err.message);
+        throw new ConflictError('Пользователь с таким email уже существует');
       }
       throw err;
     })

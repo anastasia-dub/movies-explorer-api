@@ -11,7 +11,7 @@ const NOT_AUTH_ERROR_WRONG_EMAIL_PASSWORD = 'Неправильные почта
 const INTERNAL_SERVER_ERROR = 'На сервере произошла ошибка';
 const ERROR_KIND_OBJECT_ID = 'ObjectId';
 
-const MONGO_DB_ADRESS = 'mongodb://localhost:27017/moviesdb';
+const MONGO_DB_ADRESS_DEV = 'mongodb://localhost:27017/moviesdb';
 
 const ALLOWED_CORS = [
   'api-movies-explorer.nomoredomains.work',
@@ -62,7 +62,7 @@ module.exports = {
   BAD_REQUEST,
   BAD_URL,
   ERROR_KIND_OBJECT_ID,
-  MONGO_DB_ADRESS,
+  MONGO_DB_ADRESS_DEV,
   ALLOWED_CORS,
   MOVIE_SCHEMA_REQUIRED_MESSAGES,
   MOVIE_SCHEMA_VALIDATE_MESSAGES,

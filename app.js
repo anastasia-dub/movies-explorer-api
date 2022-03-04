@@ -12,12 +12,12 @@ const rateLimiter = require('./middlewares/rateLimit');
 
 const {
   ALLOWED_CORS,
-  MONGO_DB_ADRESS,
+  MONGO_DB_ADRESS_DEV,
 } = require('./utils/constants');
 
 const router = require('./routes');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, MONGO_DB_ADRESS = MONGO_DB_ADRESS_DEV } = process.env;
 const app = express();
 
 app.use(cors({

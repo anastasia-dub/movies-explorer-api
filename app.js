@@ -10,7 +10,10 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const errors = require('./middlewares/errors');
 const rateLimiter = require('./middlewares/rateLimit');
 
-const { ALLOWED_CORS } = require('./utils/constants');
+const {
+  ALLOWED_CORS,
+  MONGO_DB_ADRESS,
+} = require('./utils/constants');
 
 const router = require('./routes');
 
@@ -24,7 +27,7 @@ app.use(cors({
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 }));
 
-mongoose.connect('mongodb://localhost:27017/moviesdb', {
+mongoose.connect(MONGO_DB_ADRESS, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,

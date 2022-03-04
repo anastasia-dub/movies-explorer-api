@@ -21,7 +21,7 @@ const getCurrentUser = (req, res, next) => {
 
   User.findById(id)
     .then((user) => {
-      res.status(200).send(user);
+      res.send(user);
     })
     .catch((err) => {
       res.send(err);
@@ -40,7 +40,7 @@ const updateCurrentUser = (req, res, next) => {
     { runValidators: true, new: true },
   )
     .then((user) => {
-      res.status(200).send(user);
+      res.send(user);
     })
     .catch((err) => {
       if (err.name === VALIDATION_ERROR_NAME) {
@@ -97,7 +97,7 @@ const createUser = (req, res, next) => {
       name: req.body.name,
     }))
     .then((user) => {
-      res.status(200).send({
+      res.send({
         name: user.name,
         _id: user._id,
         email: user.email,

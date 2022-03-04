@@ -16,7 +16,7 @@ const getMovies = (req, res, next) => {
 
   Movie.find({ owner })
     .then((cards) => {
-      res.status(200).send(cards);
+      res.send(cards);
     })
     .catch((err) => {
       throw new NotFoundError(err.message);
@@ -56,7 +56,7 @@ const deleteMovie = (req, res, next) => {
       } else {
         Movie.findByIdAndDelete(movieId)
           .then((deletedMovie) => {
-            res.status(200).send({ data: deletedMovie });
+            res.send({ data: deletedMovie });
           })
           .catch(next);
       }

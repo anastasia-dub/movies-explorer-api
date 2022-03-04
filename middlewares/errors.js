@@ -1,13 +1,25 @@
+const {
+  BAD_REQUEST,
+  INTERNAL_SERVER_ERROR,
+  ERROR_KIND_OBJECT_ID,
+} = require('../utils/constants');
+
 const errors = (err, req, res, next) => {
   const { statusCode = 500, message } = err;
-  return res
-    .status(statusCode)
-    .send({
-      // проверяем статус и выставляем сообщение в зависимости от него
+  if (err.kind === ERROR_KIND_OBJECT_ID) {
+    res.status(400).send({
+      message: BAD_REQUEST,
+    });
+  } else {
+    res.status(statusCode).send({
       message: statusCode === 500
-        ? 'На сервере произошла ошибка'
+        ? INTERNAL_SERVER_ERROR
         : message,
     });
+  }
+  if (next) {
+    next();
+  }
 };
 
 module.exports = errors;

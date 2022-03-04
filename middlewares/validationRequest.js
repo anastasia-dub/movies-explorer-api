@@ -1,6 +1,16 @@
-const { celebrate, Joi } = require('celebrate');
+const { celebrate, Joi, CelebrateError } = require('celebrate');
+const isURL = require('validator/lib/isURL');
 
-const { URL_REGEXP } = require('../utils/constants');
+const {
+  BAD_URL,
+} = require('../utils/constants');
+
+const urlValidator = (value) => {
+  if (!isURL(value)) {
+    throw new CelebrateError(`${value} ${BAD_URL}`);
+  }
+  return value;
+};
 
 const validateId = celebrate({
   params: Joi.object().keys({
@@ -24,9 +34,9 @@ const validateMovieCreate = celebrate({
     description: Joi.string().required().min(1).max(5000),
     nameRU: Joi.string().required().min(1).max(100),
     nameEN: Joi.string().required().min(1).max(100),
-    image: Joi.string().required().pattern(URL_REGEXP),
-    trailer: Joi.string().required().pattern(URL_REGEXP),
-    thumbnail: Joi.string().required().pattern(URL_REGEXP),
+    image: Joi.string().required().custom(urlValidator),
+    trailerLink: Joi.string().required().custom(urlValidator),
+    thumbnail: Joi.string().required().custom(urlValidator),
     movieId: Joi.number().required(),
   }),
 });

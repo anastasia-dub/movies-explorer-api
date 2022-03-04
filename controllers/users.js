@@ -1,7 +1,12 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const { DEV_JWT_KEY } = require('../utils/constants');
+const {
+  DEV_JWT_KEY,
+  NOT_AUTH_ERROR_WRONG_EMAIL_PASSWORD,
+  VALIDATION_ERROR_NAME,
+  BAD_REQUEST,
+} = require('../utils/constants');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
@@ -38,9 +43,10 @@ const updateCurrentUser = (req, res, next) => {
       res.status(200).send(user);
     })
     .catch((err) => {
-      if (err.name === 'ValidationError') {
-        throw new BadRequestError(err.message);
+      if (err.name === VALIDATION_ERROR_NAME) {
+        throw new BadRequestError(BAD_REQUEST);
       }
+      throw err;
     })
     .catch(next);
 };
@@ -50,14 +56,14 @@ const login = (req, res, next) => {
   User.findOne({ email }).select('+password')
     .then((user) => {
       if (!user) {
-        const err = new Error('Неправильные почта или пароль');
+        const err = new Error(NOT_AUTH_ERROR_WRONG_EMAIL_PASSWORD);
         err.statusCode = 401;
         return Promise.reject(err);
       }
       return bcrypt.compare(password, user.password).then((matched) => {
         if (!matched) {
           // хеши не совпали — отклоняем промис
-          const err = new Error('Неправильные почта или пароль');
+          const err = new Error(NOT_AUTH_ERROR_WRONG_EMAIL_PASSWORD);
           err.statusCode = 401;
           return Promise.reject(err);
         }
@@ -98,12 +104,13 @@ const createUser = (req, res, next) => {
       });
     })
     .catch((err) => {
-      if (err.name === 'ValidationError') {
-        throw new BadRequestError(err.message);
+      if (err.name === VALIDATION_ERROR_NAME) {
+        throw new BadRequestError(BAD_REQUEST);
       }
       if (err.code === 11000) {
         throw new ConflictError(err.message);
       }
+      throw err;
     })
     .catch(next);
 };

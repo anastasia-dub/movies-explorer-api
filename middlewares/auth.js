@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { DEV_JWT_KEY } = require('../utils/constants');
+const { DEV_JWT_KEY, NOT_AUTH_ERROR } = require('../utils/constants');
 const NotAuthError = require('../errors/NotAuthError');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
@@ -8,7 +8,7 @@ const auth = (req, res, next) => {
   const { jwt: token } = req.cookies;
 
   if (!token) {
-    throw new NotAuthError('Ошибка авторизации');
+    throw new NotAuthError(NOT_AUTH_ERROR);
   }
 
   try {
@@ -18,7 +18,7 @@ const auth = (req, res, next) => {
     next();
   } catch (err) {
     err.statusCode = 401;
-    next(new NotAuthError('Ошибка авторизации'));
+    next(new NotAuthError(NOT_AUTH_ERROR));
   }
 };
 

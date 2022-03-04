@@ -11,6 +11,8 @@ const {
   createUser,
 } = require('../controllers/users');
 
+const { NOT_FOUND_ERROR } = require('../utils/constants');
+
 const auth = require('../middlewares/auth');
 
 const userRouter = require('./users');
@@ -26,7 +28,7 @@ router.use(auth, userRouter);
 router.use(auth, movieRouter);
 
 router.use('/*', () => {
-  throw new NotFoundError('Запрашиваемый ресурс не найден');
+  throw new NotFoundError(NOT_FOUND_ERROR);
 });
 
 module.exports = router;

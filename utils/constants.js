@@ -16,6 +16,7 @@ const MONGO_DB_ADRESS_DEV = 'mongodb://localhost:27017/moviesdb';
 const ALLOWED_CORS = [
   'api-movies-explorer.nomoredomains.work',
   'app.movies-explorer.nomoredomains.work',
+  '*',
 ];
 
 const MOVIE_SCHEMA_REQUIRED_MESSAGES = {

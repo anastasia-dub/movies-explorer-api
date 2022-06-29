@@ -40,12 +40,6 @@ const movieSchema = new mongoose.Schema({
   trailer: {
     type: String,
     required: [true, MOVIE_SCHEMA_REQUIRED_MESSAGES.TRAILER],
-    validate: {
-      validator(v) {
-        return isURL(v);
-      },
-      message: (props) => `${props.value} ${MOVIE_SCHEMA_VALIDATE_MESSAGES.TRAILER}`,
-    },
   },
   thumbnail: {
     type: String,
@@ -63,7 +57,7 @@ const movieSchema = new mongoose.Schema({
     required: [true, MOVIE_SCHEMA_REQUIRED_MESSAGES.OWNER],
   },
   movieId: {
-    type: Number,
+    type: String,
     required: [true, MOVIE_SCHEMA_REQUIRED_MESSAGES.MOVIE_ID],
   },
   nameRU: {

@@ -37,7 +37,7 @@ const movieSchema = new mongoose.Schema({
       message: (props) => `${props.value} ${MOVIE_SCHEMA_VALIDATE_MESSAGES.IMAGE}`,
     },
   },
-  trailerLink: {
+  trailer: {
     type: String,
     required: [true, MOVIE_SCHEMA_REQUIRED_MESSAGES.TRAILER],
     validate: {
